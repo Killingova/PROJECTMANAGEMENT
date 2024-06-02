@@ -10,25 +10,47 @@ function App() {
   });
 
   function handleStartAddProject() {
+    setProjectsState(prevState => ({
+      ...prevState,
+      selectedProjectID: null,
+    }));
+  }
+
+  function handleAddProject(projectData) {
+    console.log('handleAddProject called with:', projectData);
+
     setProjectsState(prevState => {
+      const projectId = Math.random();
+      const newProject = {
+        ...projectData,
+        id: projectId,
+      };
+      console.log('New project to be added:', newProject);
+
       return {
         ...prevState,
-        selectedProjectID: null,
+        selectedProjectID: undefined, // Optional: Set the selected project to the new one
+        projects: [...prevState.projects, newProject],
       };
     });
   }
 
+  console.log('Current projectsState:', projectsState);
+
   let content;
 
   if (projectsState.selectedProjectID === null) {
-    content = <NewProject />;
+    content = <NewProject onAdd={handleAddProject} />;
   } else if (projectsState.selectedProjectID === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectSidebar 
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects} 
+      />
       {content}
     </main>
   );
