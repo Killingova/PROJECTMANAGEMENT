@@ -14,7 +14,7 @@ export default function ProjectSidebar({ onStartAddProject, projects }) {
       <ul className="mt-8">
         {projects.map(project => (
           <li key={project.id}>
-            <button className="w-full text-left px-4 py-2 rounded-md my-2 bg-stone-700 text-stone-200 hover:bg-stone-600 hover:text-white focus:bg-stone-800 focus:text-white">
+            <button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:bg-stone-800 hover:text-white focus:bg-stone-800 focus:text-white">
               {project.title}
             </button>
           </li>
